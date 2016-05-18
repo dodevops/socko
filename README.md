@@ -125,7 +125,7 @@ The parameter in the directive directly refers to a cartridge-file name.
  
 For example, this directive:
 
-    {{<< content1
+    {{<< content1 >>}}
 
 would look for a cartridge file named content1.cartridge.
 
