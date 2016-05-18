@@ -1,0 +1,29 @@
+{
+  "name": "socko",
+  "description": "Hierarchical file weaver.",
+  "version": "1.0.0-beta.1",
+  "author": {
+    "name": "Dennis Ploeger",
+    "email": "develop@getit.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dploeger/socko.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "detect-newline": "^2.1.0",
+    "error-factory": "^0.1.6",
+    "fs-extra": "^0.30.0",
+    "merge": "^1.2.0",
+    "seeli": "^0.4.3",
+    "walk": "^2.3.9",
+    "winston": "^2.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "gruntify-eslint": "^2.0.0"
+  }
+}

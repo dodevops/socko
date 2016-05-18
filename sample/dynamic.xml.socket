@@ -1,0 +1,4 @@
+<dynamic>
+    <static>This is a static node</static>
+    <!-- SOCKO: dynamic_xml_content -->
+</dynamic>
