@@ -150,10 +150,10 @@ file in one line.
 
 For this to work, instead of setting a cartridge name, do something like this:
 
-    {{<< MULTI:SCOPE:CARTRIDGE-REGEXP >>}}
+    {{<< COLLECT:SCOPE:CARTRIDGE-REGEXP >>}}
 
-The cartridge name is prefixed with "MULTI:", a scope and is actually a regular 
-expression to match cartridge files.
+The cartridge name is prefixed with "COLLECT:", a scope and is actually a 
+regular expression to match cartridge files.
 
 The scope defines how many levels SOCKO! will scan for matching cartridge 
 files. The value 0 only scans the current node. If a file can not be matched,
