@@ -114,6 +114,18 @@ which you can choose, so your file validator still validates the socket files.
     
     "_SOCKO!": "CARTRIDGE-NAME",
     
+    Hash-Comment-Style:
+    
+    # SOCKO: CARTDRIDGE-NAME #
+    
+    Slash-Comment-Style:
+    
+    // SOCKO: CARTDRIDGE-NAME //
+    
+    Multiline-Slash-Comment-Style:
+    
+    /* SOCKO: CARTRIDGE-NAME */
+    
     Native-Style:
     
     {{<< CARTRIDGE-NAME >>}}

@@ -1,0 +1,4 @@
+int test()
+{
+   std::cout << "foo bar!";
+}

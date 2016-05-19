@@ -24,6 +24,13 @@ var nodeTests = {
         'static.txt': [
             new RegExp('This is a static file from the root.')
         ],
+        'dynamic.cpp': [
+            new RegExp('Hello World!'),
+            new RegExp('foo bar!')
+        ],
+        'dynamic.properties': [
+            new RegExp('test2 = test')
+        ],
         'dynamic.json': [
             new RegExp('"static": "this is static",'),
             new RegExp('"dynamic": "This is dynamic content from the root!"'),
