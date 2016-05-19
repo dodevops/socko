@@ -143,6 +143,33 @@ would look for a cartridge file named content1.cartridge.
 
 Please note, that socket and cartridge files currently have to be UTF-8 encoded!
 
+## Cartridge-Collectors
+
+SOCKO! also supports specifying multiple cartridges to insert into a socket 
+file in one line.
+
+For this to work, instead of setting a cartridge name, do something like this:
+
+    {{<< MULTI:SCOPE:CARTRIDGE-REGEXP >>}}
+
+The cartridge name is prefixed with "MULTI:", a scope and is actually a regular 
+expression to match cartridge files.
+
+The scope defines how many levels SOCKO! will scan for matching cartridge 
+files. The value 0 only scans the current node. If a file can not be matched,
+ no output is produced and the directive is just removed from the file.
+ 
+The value 1 will also scan the parent node and so on.
+
+Specifying a "-" as the value will scan the complete hierarchy, up to the 
+root node.
+
+## Excluding cartridges
+
+If you'd like to exclude specific cartridges (and thus leaving the part of 
+the socket file empty), you can add one or more "--exclude" parameters 
+together with cartridge file names.
+
 ## Requirements
 
 * Node.js
@@ -155,7 +182,7 @@ Please note, that socket and cartridge files currently have to be UTF-8 encoded!
 
 Start socko by issuing
 
-    ./socko.js
+    node ./socko.js
 
 Use "help" or "--help" to display the available options and commands.
 
