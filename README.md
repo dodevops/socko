@@ -1,4 +1,4 @@
-# SOCKO! - Hierarchical file weaver.
+# SOCKO! - Hierarchical file weaver. [![Build Status](https://secure.travis-ci.org/dploeger/regexp-inverse.png?branch=master)](http://travis-ci.org/dploeger/regexp-inverse)
 
 ## Introduction
 
