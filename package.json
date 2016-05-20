@@ -30,6 +30,9 @@
     "gruntify-eslint": "^2.0.0",
     "regexp-inverse": "^1.0.0-beta.1"
   },
+  "scripts": {
+    "test": "grunt test"
+  },
   "keywords": [
     "template",
     "engine",
