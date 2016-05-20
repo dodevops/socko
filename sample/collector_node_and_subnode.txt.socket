@@ -1,0 +1,5 @@
+This is a cartridge collector:
+
+Node and subnode:
+
+{{<< COLLECT:1:R:.* >>}}

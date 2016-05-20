@@ -150,25 +150,37 @@ file in one line.
 
 For this to work, instead of setting a cartridge name, do something like this:
 
-    {{<< COLLECT:SCOPE:CARTRIDGE-REGEXP >>}}
+    {{<< COLLECT:SCOPE:TYPE:NAME >>}}
 
-The cartridge name is prefixed with "COLLECT:", a scope and is actually a 
-regular expression to match cartridge files.
+If the cartridge name starts with "COLLECT:", SOCKO! understands it as a 
+cartridge collector directive.
 
-The scope defines how many levels SOCKO! will scan for matching cartridge 
-files. The value 0 only scans the current node. If a file can not be matched,
- no output is produced and the directive is just removed from the file.
+This directive has the following parts, separated by a ":".
+
+* SCOPE: The scope defines how many levels SOCKO! will scan for matching 
+  cartridge files. The value 0 only scans the current node. 
+  The value 1 will also scan the parent node and so on.
+  Specifying a "-" as the value will scan the complete hierarchy, up to the 
+  root node.
+* TYPE: There are different matching types available:
+    * R: The parameter NAME is a regular expression, that has to match the 
+      available cartridge names
+    * G: The parameter NAME is a glob expression, that has to match the 
+      available cartridge names
+* NAME: expression, based on the TYPE-parameter
  
-The value 1 will also scan the parent node and so on.
+If there are no matches, the directive is simply removed from the output file.
 
-Specifying a "-" as the value will scan the complete hierarchy, up to the 
-root node.
-
-## Excluding cartridges
+## Ignoring cartridges
 
 If you'd like to exclude specific cartridges (and thus leaving the part of 
-the socket file empty), you can add one or more "--exclude" parameters 
+the socket file empty), you can add one or more "--ignore" parameters 
 together with cartridge file names.
+
+You can also specify to exclude cartridges in a specific node by prefixing 
+that node with <NODENAME>: like this:
+
+    node socko.js --ignore nodeA:dynamic_txt_content1 (...)
 
 ## Requirements
 
