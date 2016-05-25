@@ -97,6 +97,10 @@ For nodeC:nodeC1, finally, the two dynamic content sockets from the nodeC1-
  
 If you'd like to play with SOCKO!, you can use the sample directory to test 
 with.
+
+**Please note**, that currently empty directories in the _socko-metadirectory 
+are not available as nodes. There has to be at least one file in it. We 
+recommend to add a small README-file to show, what the node does.
  
 ## Socket files
 

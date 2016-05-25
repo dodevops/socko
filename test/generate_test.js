@@ -401,8 +401,6 @@ function checkFilesMatch(contentObject) {
                             );
                         }
 
-
-
                         return false;
 
                     }
@@ -716,6 +714,43 @@ module.exports = {
                         test,
                         [
                             'testtmp/subdirectory/includesample3/test3.txt',
+                        ]
+                    );
+
+                }
+
+                test.done();
+            }
+        );
+
+    },
+
+    testDirectoryIncludeMissingDirectory: function (test) {
+
+        var generatorApi = new GeneratorApi({
+            inputPath: 'sample'
+        });
+
+        winston.info('Generating nodeA:nodeA1');
+
+        test.expect(3);
+
+        generatorApi.generate(
+            'nodeA:nodeA1',
+            'testtmp',
+            function (error) {
+                test.ifError(
+                    error,
+                    'Generator returned an error.'
+                );
+
+                if (!error) {
+
+                    filesShouldExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/includesample/test2.txt',
+                            'testtmp/subdirectory/includesample/test3.txt'
                         ]
                     );
 
