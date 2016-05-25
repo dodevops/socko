@@ -182,6 +182,90 @@ that node with <NODENAME>: like this:
 
     node socko.js --ignore nodeA:dynamic_txt_content1 (...)
 
+## Directory includes
+
+If you'd like to fill a complete directory with files from a directory inside
+ the "_socko"-Metadirectory, you can do this by creating an empty directory 
+ in the input directory and placing the following file inside it:
+ 
+    .socko.include
+    
+This file holds a scope (like the cartridge collectors above) and a globbing 
+pattern defining which files should be included:
+
+    SCOPE:PATTERN
+
+Example:
+
+    -1:**/*
+
+This will include all files and subfolders and also check parent nodes for 
+missing files.
+
+During generation this file will be deleted and instead the selected content 
+from the corresponding directory inside the socko node will be used. If no 
+matching directory inside the socko node exist, the directory is skipped.
+
+Example:
+
+    * input
+    |
+    *--* _socko
+    |  |
+    |  *--* exampleinclude
+    |  |  |
+    |  |  *--* file3.json
+    |  |
+    |  *--* dev
+    |     |
+    |     *--* exampleinclude
+    |        |
+    |        *--* subdirectory
+    |        |  |
+    |        |  *--* file4.yaml
+    |        |
+    |        *--* file1.xml
+    |        *--* file2.txt
+    |
+    *--* exampleinclude
+       |
+       *--* .socko.include
+
+If .socko.include has this content:
+
+    0:**/*
+
+The output will look like this:
+
+    * output
+    |
+    *--* exampleinclude
+       |
+       *--* subdirectory
+       |  |
+       |  *--* file4.yaml
+       |
+       *--* file1.xml
+       *--* file2.txt
+
+If .socko.include has this content:
+
+    -1:**/*
+
+The output will look like this:
+
+    * output
+    |
+    *--* exampleinclude
+       |
+       *--* subdirectory
+       |  |
+       |  *--* file4.yaml
+       |
+       *--* file1.xml
+       *--* file2.txt
+       *--* file3.json
+
 ## Requirements
 
 * Node.js

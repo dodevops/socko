@@ -1,7 +1,7 @@
 {
   "name": "socko",
   "description": "Hierarchical file weaver.",
-  "version": "1.0.0-beta.9",
+  "version": "1.0.0-beta.10",
   "author": {
     "name": "Dennis Ploeger",
     "email": "develop@getit.de"
@@ -20,6 +20,7 @@
     "detect-newline": "^2.1.0",
     "error-factory": "^0.1.6",
     "fs-extra": "^0.30.0",
+    "glob": "^7.0.3",
     "merge": "^1.2.0",
     "minimatch": "^3.0.0",
     "seeli": "^0.4.3",

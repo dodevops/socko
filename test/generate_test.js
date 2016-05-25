@@ -5,6 +5,7 @@
 var GeneratorApi = require('../lib/api/generator'),
     fse = require('fs-extra'),
     fs = require('fs'),
+    util = require('util'),
     path = require('path'),
     merge = require('merge'),
     winston = require('winston'),
@@ -416,6 +417,56 @@ function checkFilesMatch(contentObject) {
 
 }
 
+/**
+ * Nodeunit-Tests, checking if the given files exist
+ *
+ * @param test NodeUnit test object
+ * @param files Array of files
+ */
+
+function filesShouldExist(test, files) {
+
+    for (var i = 0; i < files.length; i++) {
+
+        var file = files[i];
+
+        test.doesNotThrow(
+            function () {
+                fs.statSync(file);
+            },
+            Error,
+            util.format('File %s does not exist.', file)
+        );
+
+    }
+
+}
+
+/**
+ * Nodeunit-Tests, checking if the given files not exists
+ *
+ * @param test NodeUnit test object
+ * @param files Array of files
+ */
+
+function filesShouldNotExist(test, files) {
+
+    for (var i = 0; i < files.length; i++) {
+
+        var file = files[i];
+
+        test.throws(
+            function () {
+                fs.statSync(file);
+            },
+            Error,
+            util.format('File %s does exist unexpectedly.', file)
+        );
+
+    }
+
+}
+
 module.exports = {
 
     setUp: function (callback) {
@@ -600,6 +651,74 @@ module.exports = {
                         true,
                         "Files were missing or their content didn't match."
                     );
+                }
+
+                test.done();
+            }
+        );
+
+    },
+
+    testDirectoryInclude: function (test) {
+
+        var generatorApi = new GeneratorApi({
+            inputPath: 'sample'
+        });
+
+        winston.info('Generating nodeB:nodeB1');
+
+        test.expect(10);
+
+        generatorApi.generate(
+            'nodeB:nodeB1',
+            'testtmp',
+            function (error) {
+                test.ifError(
+                    error,
+                    'Generator returned an error.'
+                );
+
+                if (!error) {
+
+                    filesShouldExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/includesample/test.txt',
+                            'testtmp/subdirectory/includesample/test2.txt',
+                            'testtmp/subdirectory/includesample/test3.txt'
+                        ]
+                    );
+
+                    filesShouldExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/includesample2/test.txt',
+                        ]
+                    );
+
+                    filesShouldNotExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/includesample2/test2.txt',
+                            'testtmp/subdirectory/includesample2/test3.txt'
+                        ]
+                    );
+
+                    filesShouldExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/includesample3/test.txt',
+                            'testtmp/subdirectory/includesample3/test2.txt'
+                        ]
+                    );
+
+                    filesShouldNotExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/includesample3/test3.txt',
+                        ]
+                    );
+
                 }
 
                 test.done();
