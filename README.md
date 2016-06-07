@@ -1,3 +1,5 @@
+![SOCKO!](SockoLogo.png)
+
 # SOCKO! - Hierarchical file weaver. [![Build Status](https://secure.travis-ci.org/dploeger/regexp-inverse.png?branch=master)](http://travis-ci.org/dploeger/regexp-inverse)
 
 ## Introduction
@@ -154,7 +156,7 @@ file in one line.
 
 For this to work, instead of setting a cartridge name, do something like this:
 
-    {{<< COLLECT:SCOPE:TYPE:NAME >>}}
+    {{<< COLLECT:SCOPE:TYPE:PATTERN >>}}
 
 If the cartridge name starts with "COLLECT:", SOCKO! understands it as a 
 cartridge collector directive.
@@ -167,11 +169,11 @@ This directive has the following parts, separated by a ":".
   Specifying a "-" as the value will scan the complete hierarchy, up to the 
   root node.
 * TYPE: There are different matching types available:
-    * R: The parameter NAME is a regular expression, that has to match the 
+    * R: The parameter PATTERN is a regular expression, that has to match the 
       available cartridge names
-    * G: The parameter NAME is a glob expression, that has to match the 
+    * G: The parameter PATTERN is a glob expression, that has to match the 
       available cartridge names
-* NAME: expression, based on the TYPE-parameter
+* PATTERN: expression, based on the TYPE-parameter
  
 If there are no matches, the directive is simply removed from the output file.
 
