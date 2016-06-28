@@ -352,7 +352,6 @@ nodeTests['nodeBnodeIgnore'] = merge({}, nodeTests['_default'], {
     ]
 });
 
-
 /**
  * Check, if all files exist and optional RegExps match
  *
@@ -424,7 +423,7 @@ function checkFilesMatch(contentObject) {
 
 function filesShouldExist(test, files) {
 
-    for (var i = 0; i < files.length; i++) {
+    for (var i = 0; i < files.length; i++) {
 
         var file = files[i];
 
@@ -449,7 +448,7 @@ function filesShouldExist(test, files) {
 
 function filesShouldNotExist(test, files) {
 
-    for (var i = 0; i < files.length; i++) {
+    for (var i = 0; i < files.length; i++) {
 
         var file = files[i];
 
@@ -751,6 +750,55 @@ module.exports = {
                         [
                             'testtmp/subdirectory/includesample/test2.txt',
                             'testtmp/subdirectory/includesample/test3.txt'
+                        ]
+                    );
+
+                }
+
+                test.done();
+            }
+        );
+
+    },
+
+    testRenames: function (test) {
+
+        var generatorApi = new GeneratorApi({
+            inputPath: 'sample',
+            renames: [
+                'dynamic.txt:dynamic.txt.test',
+                'subdirectory/static.txt:subdirectory/static.txt.test'
+            ]
+        });
+
+        winston.info('Generating nodeA:nodeA1');
+
+        test.expect(5);
+
+        generatorApi.generate(
+            'nodeA:nodeA1',
+            'testtmp',
+            function (error) {
+                test.ifError(
+                    error,
+                    'Generator returned an error.'
+                );
+
+                if (!error) {
+
+                    filesShouldExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/static.txt.test',
+                            'testtmp/dynamic.txt.test'
+                        ]
+                    );
+
+                    filesShouldNotExist(
+                        test,
+                        [
+                            'testtmp/subdirectory/static.txt',
+                            'testtmp/dynamic.txt'
                         ]
                     );
 

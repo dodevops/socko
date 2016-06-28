@@ -272,6 +272,18 @@ The output will look like this:
        *--* file2.txt
        *--* file3.json
 
+## Renaming files in flight
+
+If you'd like to rename the files created during a SOCKO! run, you can use 
+the --rename argument. This argument can be specified multiple times and 
+should be in the form
+
+    --rename source-path:destination-path
+
+The paths should be relative to the input directory. If SOCKO! finds a path, 
+that matches _source-path_ during its run (in all features), it is 
+automatically translated to _destination-path_.
+
 ## Requirements
 
 * Node.js
