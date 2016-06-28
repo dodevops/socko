@@ -1,7 +1,7 @@
 {
   "name": "socko",
   "description": "Hierarchical file weaver.",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.12",
   "author": {
     "name": "Dennis Ploeger",
     "email": "develop@getit.de"
