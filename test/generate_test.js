@@ -56,7 +56,10 @@ var nodeTests = {
         ],
         'subdirectory/static.txt': [
             new RegExp('This is the static.txt in subdirectory from root.')
-
+        ],
+        'subdirectory/socketinsubdir.txt': [
+            new RegExp('This is the first dynamic content from the' +
+                ' subdirectory in root.')
         ],
         'collector_completely.txt': [
             new RegExp('#include <iostream>'),
@@ -143,6 +146,11 @@ nodeTests['nodeA'] = merge({}, nodeTests['_default'], {
         ),
         new RegExp(
             'This is the second dynamic content from the root.'
+        )
+    ],
+    'subdirectory/collector_single_node.txt': [
+        new RegExp(
+            'This is the first dynamic content from the subdirectory in nodeA.'
         )
     ]
 });
