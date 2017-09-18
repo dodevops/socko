@@ -284,6 +284,17 @@ The paths should be relative to the input directory. If SOCKO! finds a path,
 that matches _source-path_ during its run (in all features), it is 
 automatically translated to _destination-path_.
 
+## Skipping recreation of files, that have the same content
+
+Usually, SOCKO will simply flood your output directory with the generated files.
+It does not check, if the new content is the same as the old content.
+
+If you don't want this for some reason, add the parameter
+
+    --skipIdenticalSockets
+
+and SOCKO will check, if the files differ before it actually writes them.
+
 ## Requirements
 
 * Node.js

@@ -816,6 +816,112 @@ module.exports = {
             }
         );
 
+    },
+
+    testSkipIdenticalSockets: function (test) {
+
+        fse.removeSync('testtmp');
+
+        var generatorApi = new GeneratorApi({
+            inputPath: 'sample',
+            skipIdenticalSockets: true
+        });
+
+        test.expect(3);
+
+        generatorApi.generate(
+            'nodeA:nodeA1',
+            'testtmp',
+            function (error) {
+                test.ifError(
+                    error,
+                    'Generator returned an error.'
+                );
+
+                var statBefore = fs.statSync('testtmp/dynamic.xml');
+
+                setTimeout(
+                    function () {
+                        generatorApi.generate(
+                            'nodeA:nodeA1',
+                            'testtmp',
+                            function (error) {
+                                test.ifError(
+                                    error,
+                                    'Generator returned an error.'
+                                );
+
+                                var statAfter = fs.statSync(
+                                    'testtmp/dynamic.xml'
+                                );
+
+                                test.equal(
+                                    statBefore.mtime.getTime(),
+                                    statAfter.mtime.getTime(),
+                                    'File was recreated!'
+                                );
+
+                                test.done();
+                            }
+                        );
+                    },
+                    2000
+                );
+            }
+        );
+    },
+
+    testNoSkipIdenticalSockets: function (test) {
+
+        fse.removeSync('testtmp');
+
+        var generatorApi = new GeneratorApi({
+            inputPath: 'sample',
+            skipIdenticalSockets: false
+        });
+
+        test.expect(3);
+
+        generatorApi.generate(
+            'nodeA:nodeA1',
+            'testtmp',
+            function (error) {
+                test.ifError(
+                    error,
+                    'Generator returned an error.'
+                );
+
+                var statBefore = fs.statSync('testtmp/dynamic.xml');
+
+                setTimeout(
+                    function () {
+                        generatorApi.generate(
+                            'nodeA:nodeA1',
+                            'testtmp',
+                            function (error) {
+                                test.ifError(
+                                    error,
+                                    'Generator returned an error.'
+                                );
+
+                                var statAfter = fs.statSync(
+                                    'testtmp/dynamic.xml'
+                                );
+
+                                test.notEqual(
+                                    statBefore.mtime.getTime(),
+                                    statAfter.mtime.getTime(),
+                                    'File was not recreated!'
+                                );
+
+                                test.done();
+                            }
+                        );
+                    },
+                    2000
+                );
+            }
+        );
     }
 
 };
