@@ -2,9 +2,12 @@ import { Castable, Command, command, metadata, option } from 'clime'
 import { DefaultOptions } from '../options/DefaultOptions'
 import * as path from 'path'
 import * as fs from 'fs'
-import { ConverterOptions, FileToTreeConverter, TreeToFileConverter } from 'socko-converter-file'
+import {
+  ConverterOptions, ConverterOptionsFactory, FileToTreeConverter,
+  TreeToFileConverter
+} from 'socko-converter-file'
 import { FileNode, ScanOptions } from 'file-hierarchy'
-import { SockoProcessor } from 'socko-api'
+import { SockoNodeInterface, SockoProcessor } from 'socko-api'
 import { ProcessorOptionsFactory } from 'socko-api/lib/options/ProcessorOptionsFactory'
 import Bluebird = require('bluebird')
 
@@ -57,7 +60,7 @@ export default class extends Command {
     options: GenerateOptions
   ): Promise<any> | any {
     let input = options.input.fullName
-    let output = options.input.fullName
+    let output = options.output.fullName
     let hierarchy: string
 
     if (!options.hierarchy) {
@@ -85,6 +88,19 @@ export default class extends Command {
           return error.code === 'ENOENT'
         },
         (error: any) => {
+          if (error.path === output) {
+            return Bluebird.fromCallback(fs.mkdir.bind(null, output))
+          }
+          return Bluebird.reject(
+            new Error(`Can not find directory ${error.path}. Please check your command line arguments.`)
+          )
+        }
+      )
+      .catch(
+        (error: any) => {
+          return error.code === 'EACCES'
+        },
+        (error: any) => {
           return Bluebird.reject(
             new Error(`Can not access directory ${error.path}. Please check your command line arguments.`)
           )
@@ -96,18 +112,23 @@ export default class extends Command {
           options.getLogger().debug('Ignoring hierarchy path in input path and vice versa while doing so.')
 
           let inputScanOptions = new ScanOptions(input)
-          inputScanOptions.filter = (filterPath, entry) => {
-            return Bluebird.resolve(!filterPath.startsWith(hierarchy))
+          if (hierarchy.startsWith(input)) {
+            inputScanOptions.filter = (filterPath, entry) => {
+              return Bluebird.resolve(!path.join(filterPath, entry).startsWith(hierarchy))
+            }
           }
 
           let hierarchyScanOptions = new ScanOptions(hierarchy)
-          hierarchyScanOptions.filter = (filterPath, entry) => {
-            return Bluebird.resolve(!filterPath.startsWith(input))
+
+          if (input.startsWith(hierarchy)) {
+            hierarchyScanOptions.filter = (filterPath, entry) => {
+              return Bluebird.resolve(!path.join(filterPath, entry).startsWith(input))
+            }
           }
 
           return Bluebird.props({
             input: new FileNode().scan(inputScanOptions),
-            hierarchy: new FileNode().scan(new ScanOptions(hierarchy))
+            hierarchy: new FileNode().scan(hierarchyScanOptions)
           })
         }
       )
@@ -115,12 +136,25 @@ export default class extends Command {
         trees => {
           options.getLogger().debug('Converting file trees to socko trees')
 
-          let converterOptions = new ConverterOptions()
+          let inputConverterOptions = new ConverterOptionsFactory().create()
+          let inputConverter = new FileToTreeConverter(inputConverterOptions)
 
-          let converter = new FileToTreeConverter(converterOptions)
+          let hierarchyConverterOptions = new ConverterOptionsFactory().create()
+          let hierarchyConverter = new FileToTreeConverter(hierarchyConverterOptions)
+
           return Bluebird.props({
-            input: converter.convert(trees.input),
-            hierarchy: converter.convert(trees.hierarchy)
+            input: inputConverter.convert(trees.input),
+            hierarchy: hierarchyConverter.convert(trees.hierarchy)
+          })
+        }
+      )
+      .then(
+        trees => {
+          options.getLogger().debug('Fetching hierarchy node')
+
+          return Bluebird.props({
+            input: trees.input,
+            node: trees.hierarchy.getNodeByPath(`_root:${options.node}`, ':')
           })
         }
       )
@@ -130,7 +164,7 @@ export default class extends Command {
 
           let processorOptions = new ProcessorOptionsFactory().create()
           // todo: implement rename and ignore
-          return new SockoProcessor().process(trees.input, trees.hierarchy, processorOptions)
+          return new SockoProcessor().process(trees.input, trees.node as SockoNodeInterface, processorOptions)
         }
       )
       .then(

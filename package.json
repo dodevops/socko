@@ -30,7 +30,7 @@
     "loglevel": "^1.6.0",
     "clime": "^0.5.9",
     "socko-api": "^0.3.1",
-    "socko-converter-file": "^0.2.0",
+    "socko-converter-file": "^0",
     "file-hierarchy": "^1.0.2"
   },
   "devDependencies": {

@@ -13,6 +13,8 @@ import { getLogger } from 'loglevel'
 
 let cli = new CLI('socko', path.join(__dirname, 'lib', 'commands'))
 
+getLogger('socko-converter-file:converter:FileToTreeConverter').setLevel('debug')
+
 let shim = new Shim(cli)
 shim.execute(process.argv)
   .catch(reason => {
