@@ -1,6 +1,6 @@
 {
   "name": "socko",
-  "version": "2.0.0-alpha.3",
+  "version": "2.0.0-alpha.4",
   "description": "Hierarchical File Weaver",
   "keywords": [
     "template",
@@ -11,6 +11,9 @@
     "configuration",
     "socko"
   ],
+  "bin": {
+    "socko": "./index.js"
+  },
   "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
   "license": "MIT",
   "repository": {
