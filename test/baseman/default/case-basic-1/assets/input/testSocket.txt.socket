@@ -1,0 +1,65 @@
+CARTRIDGES
+
+HASH:
+## SOCKO: hashCartridge.txt ##
+
+JSON:
+"_SOCKO": "jsonCartridge.txt"
+
+MULTILINESLASH:
+/* SOCKO: multilineSlashCartridge.txt */
+
+NATIVE:
+{{<< SOCKO: nativeCartridge.txt >>}}
+
+SLASH:
+// SOCKO: slashCartridge.txt //
+
+XML:
+<!-- SOCKO: xmlCartridge.txt -->
+
+COLLECTORSREGEXP
+
+HASH:
+## SOCKO:COLLECT:-1:R:hashCollectorRegExpCartridge.* ##
+
+JSON:
+
+"_SOCKO:COLLECT": "-1:R:jsonCollectorRegExpCartridge.*"
+
+MULTILINESLASH:
+
+/* SOCKO:COLLECT:-1:R:multilineSlashCollectorRegExpCartridge.* */
+
+NATIVE:
+
+{{<< SOCKO:COLLECT:-1:R:nativeCollectorRegExpCartridge.* >>}}
+
+SLASH:
+// SOCKO:COLLECT:-1:R:slashCollectorRegExpCartridge.* //
+
+XML:
+<!-- SOCKO:COLLECT:-1:R:xmlCollectorRegExpCartridge.* -->
+
+COLLECTORSGLOB:
+
+HASH:
+## SOCKO:COLLECT:-1:G:hashCollectorGlobCartridge* ##
+
+JSON:
+
+"_SOCKO:COLLECT": "-1:G:jsonCollectorGlobCartridge*"
+
+MULTILINESLASH:
+
+/* SOCKO:COLLECT:-1:G:multilineSlashCollectorGlobCartridge* */
+
+NATIVE:
+
+{{<< SOCKO:COLLECT:-1:G:nativeCollectorGlobCartridge* >>}}
+
+SLASH:
+// SOCKO:COLLECT:-1:G:slashCollectorGlobCartridge* //
+
+XML:
+<!-- SOCKO:COLLECT:-1:G:xmlCollectorGlobCartridge* -->

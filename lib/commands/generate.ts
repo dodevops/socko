@@ -2,28 +2,29 @@ import { Castable, Command, command, metadata, option } from 'clime'
 import { DefaultOptions } from '../options/DefaultOptions'
 import * as path from 'path'
 import * as fs from 'fs'
-import {
-  ConverterOptions, ConverterOptionsFactory, FileToTreeConverter,
-  TreeToFileConverter
-} from 'socko-converter-file'
+import { ConverterOptionsFactory, FileToTreeConverter, TreeToFileConverter } from 'socko-converter-file'
 import { FileNode, ScanOptions } from 'file-hierarchy'
-import { SockoNodeInterface, SockoProcessor } from 'socko-api'
+import { SkippedNodeBuilder, SockoNodeInterface, SockoProcessor } from 'socko-api'
 import { ProcessorOptionsFactory } from 'socko-api/lib/options/ProcessorOptionsFactory'
 import Bluebird = require('bluebird')
+import del = require('del')
 
 export class GenerateOptions extends DefaultOptions {
   @option({
-    description: 'Path to the input directory'
+    description: 'Path to the input directory',
+    required: true
   })
   public input: Castable.Directory
 
   @option({
-    description: 'Path to the output directory'
+    description: 'Path to the output directory',
+    required: true
   })
   public output: Castable.Directory
 
   @option({
-    description: 'Node to generate'
+    description: 'Node to generate',
+    required: true
   })
   public node: string
 
@@ -48,6 +49,21 @@ export class GenerateOptions extends DefaultOptions {
     toggle: true
   })
   public skipIdenticalSockets: boolean
+
+  @option({
+    description: 'Clean output directory',
+    toggle: true,
+    default: false
+  })
+  public cleanOutput: boolean
+
+  @option({
+    description: 'Ignore missing cartridges',
+    toggle: true,
+    default: false
+  })
+  public ignoreMissing: boolean
+
 }
 
 @command({
@@ -154,7 +170,7 @@ export default class extends Command {
 
           return Bluebird.props({
             input: trees.input,
-            node: trees.hierarchy.getNodeByPath(`_root:${options.node}`, ':')
+            node: trees.hierarchy.getNodeByPath(`:_root:${options.node}`, ':')
           })
         }
       )
@@ -163,15 +179,58 @@ export default class extends Command {
           options.getLogger().debug('Running socko')
 
           let processorOptions = new ProcessorOptionsFactory().create()
-          // todo: implement rename and ignore
-          return new SockoProcessor().process(trees.input, trees.node as SockoNodeInterface, processorOptions)
+          if (options.ignore && options.ignore.length > 0) {
+            processorOptions.processCartridgeNode = node => {
+              if (options.ignore.indexOf(node.name) !== -1) {
+                return Bluebird.resolve(new SkippedNodeBuilder().build())
+              } else {
+                return Bluebird.resolve(node)
+              }
+            }
+          }
+          if (options.rename && options.rename.length > 0) {
+            let renameObject = new Map<string, string>()
+
+            for (let renameOption of options.rename) {
+              let splitRenameOption = renameOption.split(/:/)
+              renameObject.set(splitRenameOption[0], splitRenameOption[1])
+            }
+            processorOptions.processResultTreeNode = node => {
+              if (renameObject.has(node.name)) {
+                node.name = renameObject.get(node.name)
+              }
+              return Bluebird.resolve(node)
+            }
+          }
+          processorOptions.allowEmptyCartridgeSlots = options.ignoreMissing
+          return new SockoProcessor().process(
+            trees.input as SockoNodeInterface,
+            trees.node as SockoNodeInterface,
+            processorOptions
+          )
         }
       )
       .then(
         outputNode => {
+
+          if (options.cleanOutput) {
+            return del(output)
+              .then(
+                () => {
+                  return Bluebird.resolve(outputNode)
+                }
+              )
+          } else {
+            return Bluebird.resolve(outputNode)
+          }
+        }
+      )
+      .then(
+        outputNode => {
+
           options.getLogger().debug('Converting output tree to directory')
 
-          let converterOptions = new ConverterOptions()
+          let converterOptions = new ConverterOptionsFactory().create()
           converterOptions.checkBeforeOverwrite = options.skipIdenticalSockets
           converterOptions.outputPath = output
 

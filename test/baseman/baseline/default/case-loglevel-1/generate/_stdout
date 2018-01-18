@@ -1,0 +1,152 @@
+[12:53:47] DEBUG (socko) Checking valid access to specified paths
+[12:53:47] DEBUG (socko) Converting input and hierarchy directories to tree.
+[12:53:47] DEBUG (socko) Ignoring hierarchy path in input path and vice versa while doing so.
+[12:53:47] DEBUG (js-hierarchy:FileNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:FileNode) Adding child {"_class":"FileNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:FileNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:FileNode) Setting child's parent to {"_class":"FileNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:FileNode) Adding child at end of children list
+[12:53:47] DEBUG (js-hierarchy:FileNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:FileNode) Adding child {"_class":"FileNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:FileNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:FileNode) Setting child's parent to {"_class":"FileNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:FileNode) Adding child at end of children list
+[12:53:47] DEBUG (js-hierarchy:FileNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:FileNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:FileNode) Adding child {"_class":"FileNode","_isRoot":true,"_data":{},"_children":["{\"_class\":\"FileNode\",\"_isRoot\":false,\"_data\":{},\"_children\":[]}"]}
+[12:53:47] DEBUG (js-hierarchy:FileNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:FileNode) Setting child's parent to {"_class":"FileNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:FileNode) Adding child at end of children list
+[12:53:47] DEBUG (socko) Converting file trees to socko trees
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Converting children of input at /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/input
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Converting children of hierarchy at /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/hierarchy
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Checking testSimpleNode.txt at /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/input/testSimpleNode.txt
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Checking nodeA at /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/hierarchy/nodeA
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) This is a simple file.
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) This simply is a directory.
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Converting children of nodeA at /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/hierarchy/nodeA
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Checking testSimpleNode.txt at /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/hierarchy/nodeA/testSimpleNode.txt
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) This is a simple file.
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Adding children to the converted node
+[12:53:47] DEBUG (js-hierarchy:SimpleNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"SimpleNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Adding children to the converted node
+[12:53:47] DEBUG (js-hierarchy:SimpleNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:BranchNode) Adding child {"_class":"SimpleNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:BranchNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:BranchNode) Setting child's parent to {"_class":"BranchNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:BranchNode) Adding child at end of children list
+[12:53:47] DEBUG (socko-converter-file:converter:FileToTreeConverter) Adding children to the converted node
+[12:53:47] DEBUG (js-hierarchy:BranchNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:SimpleNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"BranchNode","_isRoot":true,"_data":{},"_children":["{\"_class\":\"SimpleNode\",\"_isRoot\":false,\"_data\":{},\"_children\":[]}"]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko) Fetching hierarchy node
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (socko) Running socko
+[12:53:47] DEBUG (socko-api:SockoProcessor) Walking through available processors
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Got node named _root. Checking...
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Creating root node
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Got node named _root. Checking...
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Creating root node
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Got node named _root. Checking...
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Creating root node
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Processing child nodes...
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Processing child nodes...
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Processing child nodes...
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Got node named testSimpleNode.txt. Checking...
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Processing...
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Walking through the hierarchy tree to find an override eligible node for testSimpleNode.txt
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Got node named testSimpleNode.txt. Checking...
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Skipping...
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Got node named testSimpleNode.txt. Checking...
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Skipping...
+[12:53:47] DEBUG (js-hierarchy:BranchNode) Walking this node using RootUpWalker
+[12:53:47] DEBUG (js-hierarchy:BranchNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Processing child nodes...
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Processing child nodes...
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Completed processing child nodes of testSimpleNode.txt.
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Completed node testSimpleNode.txt
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Completed processing child nodes of testSimpleNode.txt.
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Completed node testSimpleNode.txt
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Found node eligeble to override node at [object Promise]
+[12:53:47] DEBUG (js-hierarchy:SimpleNode) Walking this node using RootUpWalker
+[12:53:47] DEBUG (js-hierarchy:SimpleNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:BranchNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Completed processing child nodes of _root.
+[12:53:47] DEBUG (js-hierarchy:SkippedNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"SkippedNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko-api:BucketNodeProcessor) Completed node _root
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Completed processing child nodes of _root.
+[12:53:47] DEBUG (js-hierarchy:SkippedNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"SkippedNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko-api:SocketNodeProcessor) Completed node _root
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Using override node content
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Processing child nodes...
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Completed processing child nodes of testSimpleNode.txt.
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Completed node testSimpleNode.txt
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Completed processing child nodes of _root.
+[12:53:47] DEBUG (js-hierarchy:OutputNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"OutputNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko-api:OverrideNodeProcessor) Completed node _root
+[12:53:47] DEBUG (socko-api:SockoProcessor) Merging results
+[12:53:47] DEBUG (socko-api:SockoProcessor) Sanity checking merging nodes
+[12:53:47] DEBUG (socko-api:SockoProcessor) Processing _root
+[12:53:47] DEBUG (socko-api:SockoProcessor) Adding node testSimpleNode.txt
+[12:53:47] DEBUG (socko-api:SockoProcessor) Running ResultTreeNodeProcessor from options
+[12:53:47] DEBUG (socko-api:SockoProcessor) Adding procesed children
+[12:53:47] DEBUG (js-hierarchy:OutputNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"OutputNode","_isRoot":false,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko-api:SockoProcessor) Sanity checking merging nodes
+[12:53:47] DEBUG (socko-api:SockoProcessor) Processing _root
+[12:53:47] DEBUG (socko-api:SockoProcessor) Adding node testSimpleNode.txt
+[12:53:47] DEBUG (socko-api:SockoProcessor) Running ResultTreeNodeProcessor from options
+[12:53:47] DEBUG (socko-api:SockoProcessor) Adding procesed children
+[12:53:47] DEBUG (js-hierarchy:OutputNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"OutputNode","_isRoot":false,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko-api:SockoProcessor) Sanity checking merging nodes
+[12:53:47] DEBUG (socko-api:SockoProcessor) Processing _root
+[12:53:47] DEBUG (socko-api:SockoProcessor) Adding node testSimpleNode.txt
+[12:53:47] DEBUG (socko-api:SockoProcessor) Running ResultTreeNodeProcessor from options
+[12:53:47] DEBUG (socko-api:SockoProcessor) Adding procesed children
+[12:53:47] DEBUG (js-hierarchy:OutputNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child {"_class":"OutputNode","_isRoot":false,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) Setting child's parent to {"_class":"RootNode","_isRoot":true,"_data":{},"_children":[]}
+[12:53:47] DEBUG (js-hierarchy:RootNode) Adding child at end of children list
+[12:53:47] DEBUG (socko) Converting output tree to directory
+[12:53:47] DEBUG (socko-converter-file:converter:TreeToFileConverter) Fetching path to work on
+[12:53:47] DEBUG (socko-converter-file:converter:TreeToFileConverter) Working at path /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/output
+[12:53:47] DEBUG (socko-converter-file:converter:TreeToFileConverter) Creating path
+[12:53:47] DEBUG (socko-converter-file:converter:TreeToFileConverter) Scanning children...
+[12:53:47] DEBUG (socko-converter-file:converter:TreeToFileConverter) Fetching path to work on
+[12:53:47] DEBUG (js-hierarchy:OutputNode) Walking this node using RootUpWalker
+[12:53:47] DEBUG (js-hierarchy:OutputNode) This node is not root.
+[12:53:47] DEBUG (js-hierarchy:RootNode) This node is root.
+[12:53:47] DEBUG (socko-converter-file:converter:TreeToFileConverter) Working at path /Users/dennis.ploeger/Documents/prog/devops/socko/socko/test/baseman/default/case-loglevel-1/assets/output/testSimpleNode.txt
+[12:53:47] DEBUG (socko-converter-file:converter:TreeToFileConverter) This is a content node

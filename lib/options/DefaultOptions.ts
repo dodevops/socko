@@ -1,5 +1,5 @@
 import { option, Options } from 'clime'
-import { getLogger, Logger, LogLevelDesc } from 'loglevel'
+import * as log from 'loglevel'
 
 export class DefaultOptions extends Options {
   @option({
@@ -9,9 +9,16 @@ export class DefaultOptions extends Options {
   })
   public loglevel: string
 
-  public getLogger (): Logger {
-    let logger = getLogger('socko-cli')
-    logger.setLevel(this.loglevel as LogLevelDesc)
+  public getLogger (): log.Logger {
+    let prefix = require('loglevel-plugin-prefix')
+    prefix.apply(
+      log,
+      {
+        template: '[%t] %l (%n)'
+      }
+    )
+    log.setDefaultLevel(this.loglevel as log.LogLevelDesc)
+    let logger = log.getLogger('socko')
     return logger
   }
 }
