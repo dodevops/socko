@@ -1,6 +1,6 @@
 {
   "name": "socko",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.3",
   "description": "Hierarchical File Weaver",
   "keywords": [
     "template",
@@ -20,10 +20,10 @@
   "nyc": {
     "check-coverage": true,
     "per-file": false,
-    "lines": 89,
-    "statements": 89,
-    "functions": 66,
-    "branches": 81,
+    "lines": 90,
+    "statements": 90,
+    "functions": 68,
+    "branches": 82,
     "reporter": [
       "lcov",
       "text-summary"
@@ -42,7 +42,7 @@
     "bluebird": "^3.5.1",
     "loglevel": "^1.6.0",
     "clime": "^0.5.9",
-    "socko-api": "0.4.0",
+    "socko-api": "0.4.1",
     "socko-converter-file": "0.6.2",
     "file-hierarchy": "^2.0.0",
     "loglevel-plugin-prefix": "^0.7.1",

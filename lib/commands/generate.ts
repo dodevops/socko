@@ -180,9 +180,34 @@ export default class extends Command {
 
           let processorOptions = new ProcessorOptionsFactory().create()
           if (options.ignore && options.ignore.length > 0) {
+            let ignoreObject = new Map<string, string>()
+
+            for (let ignoreOption of options.ignore) {
+              let ignoreSplit = ignoreOption.split(/=/)
+
+              if (ignoreSplit.length === 1) {
+                ignoreSplit.unshift('*')
+              }
+
+              ignoreObject.set(ignoreSplit[1], ignoreSplit[0])
+            }
+
             processorOptions.processCartridgeNode = node => {
-              if (options.ignore.indexOf(node.name) !== -1) {
-                return Bluebird.resolve(new SkippedNodeBuilder().build())
+              if (ignoreObject.has(node.name)) {
+                if (ignoreObject.get(node.name) === '*') {
+                  return Bluebird.resolve(new SkippedNodeBuilder().build())
+                } else {
+                  return node.getPath(':')
+                    .then(
+                      value => {
+                        if (`${ignoreObject.get(node.name)}:${node.name}` === value) {
+                          return Bluebird.resolve(new SkippedNodeBuilder().build())
+                        } else {
+                          return Bluebird.resolve(node)
+                        }
+                      }
+                    )
+                }
               } else {
                 return Bluebird.resolve(node)
               }
