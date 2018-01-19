@@ -130,7 +130,7 @@ export default class extends Command {
           let inputScanOptions = new ScanOptions(input)
           if (hierarchy.startsWith(input)) {
             inputScanOptions.filter = (filterPath, entry) => {
-              return Bluebird.resolve(!path.join(filterPath, entry).startsWith(hierarchy))
+              return Bluebird.resolve(!path.join(filterPath, entry).endsWith(hierarchy))
             }
           }
 
@@ -138,7 +138,7 @@ export default class extends Command {
 
           if (input.startsWith(hierarchy)) {
             hierarchyScanOptions.filter = (filterPath, entry) => {
-              return Bluebird.resolve(!path.join(filterPath, entry).startsWith(input))
+              return Bluebird.resolve(!path.join(filterPath, entry).endsWith(input))
             }
           }
 
