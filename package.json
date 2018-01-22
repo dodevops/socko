@@ -1,6 +1,6 @@
 {
   "name": "socko",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
   "description": "Hierarchical File Weaver",
   "keywords": [
     "template",
@@ -46,7 +46,7 @@
     "loglevel": "^1.6.0",
     "clime": "^0.5.9",
     "socko-api": "0.4.1",
-    "socko-converter-file": "0.6.2",
+    "socko-converter-file": "0.6.3",
     "file-hierarchy": "^2.0.0",
     "loglevel-plugin-prefix": "^0.7.1",
     "del": "^3.0.0"
