@@ -42,6 +42,9 @@ For more arguments, see
 
     socko generate --help
 
+## Docker
+
+If you don't want to or can't use Node.js on your local machine, but have [Docker](https://docker.com) at hand, you can use our docker image for working with SOCKO!. For details, see the description in the repository over at [Docker Hub](https://hub.docker.com/r/dodevops/socko/).
 
 ## SOCKO! features
 
