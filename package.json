@@ -1,6 +1,6 @@
 {
   "name": "socko",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.7",
   "description": "Hierarchical File Weaver",
   "keywords": [
     "template",
@@ -23,9 +23,9 @@
   "nyc": {
     "check-coverage": true,
     "per-file": false,
-    "lines": 90,
-    "statements": 90,
-    "functions": 68,
+    "lines": 88,
+    "statements": 88,
+    "functions": 58,
     "branches": 82,
     "reporter": [
       "lcov",
