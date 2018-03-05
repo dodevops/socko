@@ -1,287 +1,261 @@
 ![SOCKO!](SockoLogo.png)
 
-# SOCKO! - Hierarchical file weaver. [![Build Status](https://secure.travis-ci.org/dploeger/regexp-inverse.png?branch=master)](http://travis-ci.org/dploeger/regexp-inverse)
+# SOCKO! - Hierarchical file weaver. [![Build Status](https://travis-ci.org/dodevops/socko.svg?branch=master)](https://travis-ci.org/dodevops/socko)
 
 ## Introduction
 
-SOCKO! is a file generator, that copies multiple files in a directory 
-hierarchy to build up its output. While doing that, SOCKO! also can stick
-cartridges in named sockets to build completely new contents.
+SOCKO! is a file builder, that takes an input directory of files and applies
+various features based on a hierarchy directory to produce an output.
+
+It is typically used for configuration management.
+
+## The SOCKO! framework
+
+This module dubbed "SOCKO!" is merely a frontend to the socko framework. It uses socko-converter-file to produce a logical
+hierarchy for the socko-api, which does the heavy lifting. Its output is again mapped by socko-converter-file to a
+file structure.
 
 ## How SOCKO! works
 
-SOCKO! knows four verbs: a _hierarchy_, a _node_, a _socket_ and a _cartridge_.
+SOCKO! reads an _input_ directory file by file and applies various features to the encountered files based on a
+_node_ in the _hierarchy_ directory, which typically resides as "_socko" directly underneath the _input_ directory, but can also be
+placed elsewhere. In the end, everything is put into an _output_ directory.
 
-The _hierarchy_ is a bunch of directories following a certain setup. These
-directories define, how the output is going to be. A _node_ is one point
-in this hierarchy. A _socket_ is a special file in the hierarchy, that depends
-on _cartridges_ to built up its content.
+Because of its hierarchical features, SOCKO! can overwrite basic settings with settings in higher nodes.
 
-Let's take a simple example:
+## Usage
 
-We have three files. One file is a static file, that should simply be copied 
-into the output directory. The other one is a _socket_-file. It has designated
- parts of the content, that should be exchanged with the contents of a
-_cartridge_-file. The third one is also a static file, that simply
-demonstrates, how SOCKO! works with subdirectories.
+SOCKO! is a cli application that can be run by calling
 
-These files should be configured for four different nodes: nodeA, nodeB, nodeC 
-and nodeC1.
-  
-So, our basic input directory looks like this:
+    socko generate
 
-    * input
-    |
-    *--* static.js
-    *--* dynamic.js.socket
-    |
-    *--* subdirectory
-    |  |
-    *  *--* static.js
-    |
-    *--* _socko
-       |
-       *--* dynamic_content1.cartridge
-       *--* dynamic_content2.cartridge
-       |
-       *--* nodeA
-       |  |
-       |  *--* dynamic_content1.cartridge
-       |  
-       *--* nodeB
-       |  |
-       |  *--* dynamic_content2.cartridge
-       |
-       *--* nodeC
-          |
-          *--* nodeC1
-             |
-             *--* dynamic_content1.cartridge
-             *--* dynamic_content2.cartridge
-             |
-             *--* subdirectory
-                |
-                *--* static.js
-             
-In all cases, we would get the following output:
+and specifying at least these arguments:
 
-    * static.js
-    * dynamic.js
-    |
-    *--* subdirectory
-       |
-       * static.js
-       
-But the content would depend on which node we selected.
+* --input: Path to the _input_ directory
+* --node: Node in the _hierarchy_ directory
+* --output: Path to the _output_ directory
+* --hierarchy: Path to the _hierarchy_ directory (optional, uses the directory _socko under the _input_ directory if not set)
 
-    ./socko.js generate --input input --output output --node nodeA
+Nodes are referenced as directories directly underneath the _hierarchy_ directory. You can also use nodes beneath other nodes, by using the first node name, a : and the second node name (nodeA:nodeB).
 
-If we, for example, select nodeA, we would get the two static files from the 
-basic input directory and dynamic.js with its first content socket from nodeA
-subdirectory and the second content from the _socko root directory.
+For more arguments, see
 
-    ./socko.js generate --input input --output output --node nodeB
+    socko generate --help
 
-For nodeB, we would get the two static files from the basic input directory as
-well. This time the dynamic file would contain the first content socket from
-the _socko root directory and the second content from the nodeB-directory.
+## Docker
 
-    ./socko.js generate --input input --output output --node nodeC
+If you don't want to or can't use Node.js on your local machine, but have [Docker](https://docker.com) at hand, you can use our docker image for working with SOCKO!. For details, see the description in the repository over at [Docker Hub](https://hub.docker.com/r/dodevops/socko/).
 
-For nodeC, the two dynamic content sockets from the _socko root directory 
-would be used. The static files would stay the same.
+## SOCKO! features
 
-    ./socko.js generate --input input --output output --node nodeC:nodeC1
+### Overrides
 
-For nodeC:nodeC1, finally, the two dynamic content sockets from the nodeC1-
- directory would be used and the static file in the subdirectory would also
- be used from the nodeC1-directory.
- 
-If you'd like to play with SOCKO!, you can use the sample directory to test 
-with.
+SOCKO! can override files found in the _input_ directory with files from a _hierarchy_ node, if their filenames match.
 
-**Please note**, that currently empty directories in the _socko-metadirectory 
-are not available as nodes. There has to be at least one file in it. We 
-recommend to add a small README-file to show, what the node does.
- 
-## Socket files
+#### Example
 
-Socket files have the suffix .socket and may contain one or more cartridge
-inclusion directives.
+##### Setup
 
-Because SOCKO! is file type-agnostic, there are different directives from
-which you can choose, so your file validator still validates the socket files.
+* input
+  - SimpleTextFile.txt
+    ```
+    Input content
+    ```
+* hierarchy
+  - nodeA
+    - nodeB
+      - SimpleTextFile.txt
+      ```
+      Content from nodeB
+      ```
 
-    XML-Style:
-    
-    <!-- SOCKO: CARTRIDGE-NAME -->
-    
-    JSON-Style (the , is optional):
-    
-    "_SOCKO!": "CARTRIDGE-NAME",
-    
-    Hash-Comment-Style:
-    
-    # SOCKO: CARTDRIDGE-NAME #
-    
-    Slash-Comment-Style:
-    
-    // SOCKO: CARTDRIDGE-NAME //
-    
-    Multiline-Slash-Comment-Style:
-    
-    /* SOCKO: CARTRIDGE-NAME */
-    
-    Native-Style:
-    
-    {{<< CARTRIDGE-NAME >>}}
-    
-In all cases, the directive has to be in one single line and the cartridge will
-replace the whole line.
+##### Generated output
 
-The parameter in the directive directly refers to a cartridge-file name.
- 
-For example, this directive:
+```
+socko generate --input input --hierarchy hierarchy --output output --node nodeA
+```
 
-    {{<< content1 >>}}
+* output
+  - SimpleTextFile.txt
+    ```
+    Input content
+    ```
 
-would look for a cartridge file named content1.cartridge.
+```
+socko generate --input input --hierarchy hierarchy --output output --node nodeA:nodeB
+```
 
-Please note, that socket and cartridge files currently have to be UTF-8 encoded!
+* output
+  - SimpleTextFile.txt
+    ```
+    Content from nodeB
+    ```
 
-## Cartridge-Collectors
+### Sockets
 
-SOCKO! also supports specifying multiple cartridges to insert into a socket 
-file in one line.
+SOCKO! can merge together _socket_- with _cartridge_-files (thus the name). _Socket_ files
+hold different places (called _cartridge-slot_s), where cartridges should be placed.
 
-For this to work, instead of setting a cartridge name, do something like this:
+These cartridges can either be specified by a single name or as a pattern, forming a
+_cartridge collector_.
 
-    {{<< COLLECT:SCOPE:TYPE:PATTERN >>}}
+_Socket_-files live in the _input_ directory and have the prefix .socket, while _cartridge_-files live in the _hierarchy_ directory and have the prefix .cartridge.
 
-If the cartridge name starts with "COLLECT:", SOCKO! understands it as a 
-cartridge collector directive.
+_Cartridge slot_s are defined by placing a special text inside a _socket_ file. To support multiple text formats, SOCKO! provides multiple formats of this special text, called _flavour_s.
 
-This directive has the following parts, separated by a ":".
+Please see the [socko-converter-file](https://www.npmjs.com/package/socko-converter-file) documentation for details about the available flavours.
 
-* SCOPE: The scope defines how many levels SOCKO! will scan for matching 
-  cartridge files. The value 0 only scans the current node. 
-  The value 1 will also scan the parent node and so on.
-  Specifying a "-" as the value will scan the complete hierarchy, up to the 
-  root node.
-* TYPE: There are different matching types available:
-    * R: The parameter PATTERN is a regular expression, that has to match the 
-      available cartridge names
-    * G: The parameter PATTERN is a glob expression, that has to match the 
-      available cartridge names
-* PATTERN: expression, based on the TYPE-parameter
- 
-If there are no matches, the directive is simply removed from the output file.
+#### Example
+
+##### Setup
+
+* input
+  - SimpleTextFile.txt.socket
+    ```
+    This is a socket.
+    {{<< SOCKO: MyCartridge.txt >>}}
+    ```
+* hierarchy
+  - nodeA
+    - nodeB
+      - MyCartridge.txt.cartridge
+      ```
+      Cartridge content
+      ```
+
+##### Generated output
+
+```
+socko generate --input input --hierarchy hierarchy --output output --node nodeA
+```
+
+=> Error, because no cartridge can be found
+
+```
+socko generate --input input --hierarchy hierarchy --output output --node nodeA:nodeB
+```
+
+* output
+  - SimpleTextFile.txt
+  ```
+  This is a socket.
+  Cartridge content
+  ```
+
+### Buckets
+
+SOCKO! can fill up directories in the _input_ directory with files from the _hierarchy_ in the same directory. These so-called _bucket_ directories hold just one file called .socko.include. This file holds a special pattern which denotes, which files should be placed into the bucket.
+
+Please see the [socko-converter-file](https://www.npmjs.com/package/socko-converter-file) documentation for details.
+
+#### Example
+
+##### Setup
+
+* input
+  - MyBucket
+    - .socko.include
+      ```
+      0:G:BucketEntry*
+      ```
+  - MySecondBucket
+    - .socko.include
+      ```
+      -1:G:BucketEntry*
+      ```
+* hierarchy
+  - nodeA
+    - MyBucket
+      - BucketEntry1.txt
+        ```
+        Bucket entry 1 in nodeA
+        ```
+    - MySecondBucket
+      - BucketEntry1.txt
+        ```
+        Bucket entry 1 in nodeA
+        ```
+    - nodeB
+      - MyBucket
+        - BucketEntry1.txt
+        ```
+        Bucket entry 1 in nodeA:nodeB
+        ```
+        - BucketEntry2.txt
+        ```
+        Bucket entry 2 in nodeB:nodeB
+        ```
+      - MySecondBucket
+        - BucketEntry2.txt
+          ```
+          Bucket entry 2 in nodeB:nodeB
+          ```
+
+##### Generated output
+
+```
+socko generate --input input --hierarchy hierarchy --output output --node nodeA
+```
+
+* output
+  - MyBucket
+    - BucketEntry1.txt
+      ```
+      Bucket entry 1 in nodeA
+      ```
+  - MySecondBucket
+    - BucketEntry1.txt
+      ```
+      Bucket entry 1 in nodeA
+      ```
+
+```
+socko generate --input input --hierarchy hierarchy --output output --node nodeA:nodeB
+```
+
+* output
+  - MyBucket
+    - BucketEntry1.txt
+      ```
+      Bucket entry 1 in nodeA:nodeB
+      ```
+    - BucketEntry2.txt
+      ```
+      Bucket entry 2 in nodeA:nodeB
+      ```
+  - MySecondBucket
+    - BucketEntry1.txt
+      ```
+      Bucket entry 1 in nodeA
+      ```
+    - BucketEntry2.txt
+      ```
+      Bucket entry 2 in nodeB:nodeB
+      ```
+
+Note, that MySecondBucket contains both the entries from nodeA and nodeA:nodeB, because the bucket was set up to search up to the root node, while it was configured to only use the first node in MyBucket.
 
 ## Ignoring cartridges
 
-If you'd like to exclude specific cartridges (and thus leaving the part of 
-the socket file empty), you can add one or more "--ignore" parameters 
+If you'd like to exclude specific cartridges (and thus leaving the part of
+the socket file empty), you can add one or more "--ignore" parameters
 together with cartridge file names.
 
-You can also specify to exclude cartridges in a specific node by prefixing 
-that node with <NODENAME>: like this:
+You can also specify to exclude cartridges on a specific node path by prefixing
+--ignore with <NODEPATH>=. The node-path is the absolute path starting with the _hierarchy_ directory, which is set to ":_root", so "nodeA:nodeB" is ":_root:nodeA:nodeB" in this case.
 
-    node socko.js --ignore nodeA:dynamic_txt_content1 (...)
-
-## Directory includes
-
-If you'd like to fill a complete directory with files from a directory inside
- the "_socko"-Metadirectory, you can do this by creating an empty directory 
- in the input directory and placing the following file inside it:
- 
-    .socko.include
-    
-This file holds a scope (like the cartridge collectors above) and a globbing 
-pattern defining which files should be included:
-
-    SCOPE:PATTERN
-
-Example:
-
-    -1:**/*
-
-This will include all files and subfolders and also check parent nodes for 
-missing files.
-
-During generation this file will be deleted and instead the selected content 
-from the corresponding directory inside the socko node will be used. If no 
-matching directory inside the socko node exist, the directory is skipped.
-
-Example:
-
-    * input
-    |
-    *--* _socko
-    |  |
-    |  *--* exampleinclude
-    |  |  |
-    |  |  *--* file3.json
-    |  |
-    |  *--* dev
-    |     |
-    |     *--* exampleinclude
-    |        |
-    |        *--* subdirectory
-    |        |  |
-    |        |  *--* file4.yaml
-    |        |
-    |        *--* file1.xml
-    |        *--* file2.txt
-    |
-    *--* exampleinclude
-       |
-       *--* .socko.include
-
-If .socko.include has this content:
-
-    0:**/*
-
-The output will look like this:
-
-    * output
-    |
-    *--* exampleinclude
-       |
-       *--* subdirectory
-       |  |
-       |  *--* file4.yaml
-       |
-       *--* file1.xml
-       *--* file2.txt
-
-If .socko.include has this content:
-
-    -1:**/*
-
-The output will look like this:
-
-    * output
-    |
-    *--* exampleinclude
-       |
-       *--* subdirectory
-       |  |
-       |  *--* file4.yaml
-       |
-       *--* file1.xml
-       *--* file2.txt
-       *--* file3.json
+    socko --ignore :_root:nodeA:nodeB=dynamic_txt_content1 (...)
 
 ## Renaming files in flight
 
-If you'd like to rename the files created during a SOCKO! run, you can use 
-the --rename argument. This argument can be specified multiple times and 
+If you'd like to rename the files created during a SOCKO! run, you can use
+the --rename argument. This argument can be specified multiple times and
 should be in the form
 
-    --rename source-path:destination-path
+    --rename source-path=destination-path
 
-The paths should be relative to the input directory. If SOCKO! finds a path, 
-that matches _source-path_ during its run (in all features), it is 
+The paths should be relative to the input directory. If SOCKO! finds a path,
+that matches _source-path_ during its run (in all features), it is
 automatically translated to _destination-path_.
 
 ## Skipping recreation of files, that have the same content
@@ -295,23 +269,10 @@ If you don't want this for some reason, add the parameter
 
 and SOCKO will check, if the files differ before it actually writes them.
 
-## Requirements
+## Migrating from SOCKO! 1
 
-* Node.js
-* seeli
-* winston
-* handlebars
-* merge
+The following things have changed between SOCKO! 1 and 2 and should be checked and adjusted in your installation:
 
-## Usage
-
-Start socko by issuing
-
-    node ./socko.js
-
-Use "help" or "--help" to display the available options and commands.
-
-## License
-
-Copyright (c) 2016 Dennis Ploeger
-Licensed under the MIT license.
+* The --rename paramter uses a "source-path=destination-path" now instead of "source-path:destination-path" now and only supports filenames, not paths.
+* The --ignore-parameter uses a node-path before the cartridge-name and not a single node name any more.
+* The bucket-pattern allows RegExps now, so the RegExp-type should be given as a second part. The former version is still supported, but marked as deprecated and will be removed in a future version

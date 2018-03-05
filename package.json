@@ -1,48 +1,75 @@
 {
   "name": "socko",
-  "description": "Hierarchical file weaver.",
-  "version": "1.1.0-beta.2",
-  "author": {
-    "name": "Dennis Ploeger",
-    "email": "dennis.ploeger@kps.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:dodevops/socko.git"
-  },
-  "main": "index.js",
-  "bin": "./socko.js",
-  "license": "MIT",
-  "engines": {
-    "node": ">= 4.0.0"
-  },
-  "dependencies": {
-    "detect-newline": "^2.1.0",
-    "error-factory": "^0.1.6",
-    "fs-extra": "^4.0.2",
-    "glob": "^7.0.3",
-    "merge": "^1.2.0",
-    "minimatch": "^3.0.0",
-    "seeli": "^0.4.3",
-    "walk": "^2.3.9",
-    "winston": "^2.0.1"
-  },
-  "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "gruntify-eslint": "^2.0.0",
-    "regexp-inverse": "^1.0.0-beta.1"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
+  "version": "2.0.0",
+  "description": "Hierarchical File Weaver",
   "keywords": [
     "template",
     "engine",
     "hierarchy",
     "hierarchical",
     "files",
-    "configuration"
-  ]
+    "configuration",
+    "socko"
+  ],
+  "bin": {
+    "socko": "./index.js"
+  },
+  "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dodevops/socko.git"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 88,
+    "statements": 88,
+    "functions": 58,
+    "branches": 82,
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "report-dir": "test/coverage"
+  },
+  "files": [
+    "index.d.ts",
+    "index.js",
+    "index.js.map",
+    "lib/**/*.js",
+    "lib/**/*.js.map",
+    "lib/**/*.d.ts"
+  ],
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "loglevel": "^1.6.0",
+    "clime": "^0.5.9",
+    "socko-api": "1.0.0",
+    "socko-converter-file": "1.0.0",
+    "file-hierarchy": "^2.0.0",
+    "loglevel-plugin-prefix": "^0.7.1",
+    "del": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.19",
+    "@types/loglevel": "^1.5.3",
+    "@types/node": "^9.3.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-ts": "^6.0.0-beta.17",
+    "grunt-tslint": "^5.0.1",
+    "tslint": "^5.8.0",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.6.2",
+    "@types/del": "^3.0.0",
+    "baseman": "^0.1.0-dev.8",
+    "glob": "^7.1.2",
+    "@types/glob": "^5.0.34",
+    "fs-extra": "^5.0.0",
+    "@types/fs-extra": "^5.0.0",
+    "grunt-shell": "^2.1.0",
+    "nyc": "^11.4.1",
+    "grunt-coveralls": "^1.0.1"
+  }
 }

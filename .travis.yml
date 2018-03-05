@@ -1,6 +1,11 @@
 language: node_js
 node_js:
-  - 4
-  - 5
-before_script:
-  - npm install -g grunt-cli
+    - "lts/*"
+    - "6"
+    - "7"
+    - "8"
+    - "9"
+
+script:
+    - grunt test
+    - grunt coveralls

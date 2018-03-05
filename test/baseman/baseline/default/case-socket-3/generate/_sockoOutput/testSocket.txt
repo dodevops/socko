@@ -1,0 +1,4 @@
+HASH:
+hashCollectorRegExpCartridge1
+hashCollectorRegExpCartridgeNodeA2
+hashCollectorRegExpCartridgeNodeA3

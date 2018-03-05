@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "noEmitOnError": true,
+        "target": "es6",
+        "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "include": [
+        "index.ts",
+        "lib/**/*.ts",
+        "test/**/*.ts"
+    ],
+    "exclude": [
+        "index.d.ts",
+        "lib/**/*.d.ts",
+        "test/**/*.d.ts"
+    ]
+}
