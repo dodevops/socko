@@ -44,7 +44,46 @@ For more arguments, see
 
 ## Docker
 
-If you don't want to or can't use Node.js on your local machine, but have [Docker](https://docker.com) at hand, you can use our docker image for working with SOCKO!. For details, see the description in the repository over at [Docker Hub](https://hub.docker.com/r/dodevops/socko/).
+SOCKO! is also available as an official [Docker](https://docker.com) image called *dodevops/socko* over at [Docker Hub](https://hub.docker.com/r/dodevops/socko/).
+
+### Simple usage
+
+You can use the image with bind mounts for generating configurations on the fly. Let's say, you have this directory tree:
+
+    *
+    |
+    *-* socko
+      |
+      * input
+      |
+      * hierarchy
+
+You can run socko by issuing:
+
+    docker run -v `pwd`:/socko dodevops/socko generate --input /socko/input --hierarchy /socko/hierarchy --output /socko/output
+
+Your generated configuration will then be available in the new directory "socko/output".
+
+### Container configuration
+
+You can also use SOCKO! to generate configurations for your container based infrastructure. We call this a "configuration container".
+
+To do this, you'll first create a new image and put your input and hierarchy directories into it.
+
+We have two sample Dockerfiles at hand for an environment
+with a [separate hierarchy](https://github.com/dodevops/socko/blob/master/Docker/configurationContainer/Dockerfile) and one with a ["_socko"-subdirectory-type hierarchy](https://github.com/dodevops/socko/blob/master/Docker/configurationContainerIncludedHierarchy/Dockerfile). Simply take the one that fits and put it in your socko directory. Let's assume you're standing in a directory with an "input" and a "hierarchy" subdirectory, you can run:
+
+    docker build -t my-configuration-container:0.1.0 <socko-directory>/Docker/configurationContainer
+
+This will generate your configuration container image. You can then use the configuration container by running:
+
+    docker run --rm -v `pwd`/output:/socko/output -e NODE=nodeA my-configuration-container:0.1.0
+
+This will run SOCKO! in your configuration container and generate the configuration for the node specified using the environment variable "NODE".
+
+Simply mount the volume you want to fill with the generated configuration to /socko/output.
+
+You can use this method combined with things like [Kubernetes Init-Containers](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-initialization/#creating-a-pod-that-has-an-init-container) to populate a configuration volume with the container's configuration first and then starting the container with that volume.
 
 ## SOCKO! features
 
