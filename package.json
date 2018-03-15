@@ -1,6 +1,6 @@
 {
   "name": "socko",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Hierarchical File Weaver",
   "keywords": [
     "template",
@@ -45,31 +45,31 @@
     "bluebird": "^3.5.1",
     "loglevel": "^1.6.0",
     "clime": "^0.5.9",
-    "socko-api": "1.0.0",
-    "socko-converter-file": "1.0.0",
+    "socko-api": "1.1.1",
+    "socko-converter-file": "1.1.0",
     "file-hierarchy": "^2.0.0",
     "loglevel-plugin-prefix": "^0.7.1",
     "del": "^3.0.0"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.19",
+    "@types/del": "^3.0.0",
+    "@types/fs-extra": "^5.0.0",
+    "@types/glob": "^5.0.34",
     "@types/loglevel": "^1.5.3",
-    "@types/node": "^9.3.0",
+    "@types/node": "^9.4.7",
+    "baseman": "^0.1.0-dev.8",
+    "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
     "grunt": "^1.0.1",
     "grunt-contrib-clean": "^1.1.0",
-    "grunt-ts": "^6.0.0-beta.17",
+    "grunt-coveralls": "^1.0.1",
+    "grunt-shell": "^2.1.0",
+    "grunt-ts": "^6.0.0-beta.19",
     "grunt-tslint": "^5.0.1",
+    "nyc": "^11.6.0",
     "tslint": "^5.8.0",
     "tslint-config-standard": "^7.0.0",
-    "typescript": "^2.6.2",
-    "@types/del": "^3.0.0",
-    "baseman": "^0.1.0-dev.8",
-    "glob": "^7.1.2",
-    "@types/glob": "^5.0.34",
-    "fs-extra": "^5.0.0",
-    "@types/fs-extra": "^5.0.0",
-    "grunt-shell": "^2.1.0",
-    "nyc": "^11.4.1",
-    "grunt-coveralls": "^1.0.1"
+    "typescript": "^2.6.2"
   }
 }
