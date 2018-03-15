@@ -10,13 +10,30 @@ fi
 
 GITREV=`git rev-parse --short HEAD`
 
+TAG="-t dodevops/socko:"
+
 if [ $# -eq 0 ]
 then
-    VERSION="latest"
+    TAG="${TAG}latest"
     NPM_VERSION=""
+elif [ "$1" == "release" ]
+then
+    VERSION=`cat ../../package.json | jq -r .version`
+    MAJOR=`echo ${VERSION} | cut -d "." -f 1`
+    MINOR=`echo ${VERSION} | cut -d "." -f 1,2`
+    TAG="${TAG}latest -t dodevops/socko:${VERSION} -t dodevops/socko:${MAJOR} -t dodevops/socko:${MINOR}"
+    NPM_VERSION="@${VERSION}"
 else
-    VERSION=$1
+    TAG="${TAG}$1"
     NPM_VERSION="@$1"
 fi
 
-docker build -t dodevops/socko:$VERSION --build-arg date="${DATE}" --build-arg rev="${GITREV}" --build-arg version="${VERSION}" --build-arg npm_version="${NPM_VERSION}" .
+docker build ${TAG} --build-arg date="${DATE}" --build-arg rev="${GITREV}" --build-arg version="${VERSION}" --build-arg npm_version="${NPM_VERSION}" .
+
+if [ "$1" == "release" ]
+then
+    for TAG_VERSION in `echo ${TAG} | cut -d " " -f 2,4,6,8`
+    do
+        docker push ${TAG_VERSION}
+    done
+fi
