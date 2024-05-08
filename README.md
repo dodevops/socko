@@ -1,3 +1,7 @@
+**SOCKO IS ARCHIVED**
+
+I'm sorry, but we're archiving the Socko project because it isn't maintained anymore and the usage for it somehow outlived itself. 
+
 ![SOCKO!](SockoLogo.png)
 
 # SOCKO! - Hierarchical file weaver. [![Build Status](https://travis-ci.org/dodevops/socko.svg?branch=master)](https://travis-ci.org/dodevops/socko) [![Coverage Status](https://coveralls.io/repos/github/dodevops/socko/badge.svg?branch=master)](https://coveralls.io/github/dodevops/socko?branch=master) [![npm](https://img.shields.io/npm/v/socko.svg)](https://www.npmjs.com/package/socko)
